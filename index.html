@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HotelFlow</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <h1>HotelFlow</h1>
+
+  <!-- ===================== INICIO: ingreso del tenant ===================== -->
+  <section id="pantalla-inicio">
+    <h2>Ingreso</h2>
+    <p>Escribe el identificador de tu hotel (tenant) para entrar a la aplicación.</p>
+    <form id="form-inicio" novalidate>
+      <p>
+        <label for="inicio-tenant">Tenant *</label><br>
+        <input type="text" id="inicio-tenant" size="40" autocomplete="off">
+      </p>
+      <p id="inicio-cargando" hidden>Verificando el tenant...</p>
+      <p id="inicio-error" role="alert"></p>
+      <p><button type="submit" id="inicio-entrar">Ingresar</button></p>
+    </form>
+  </section>
+
+  <!-- ===================== APLICACIÓN (solo visible después de ingresar) ===================== -->
+  <div id="aplicacion" hidden>
+
+  <p>
+    Tenant: <strong id="tenant-actual"></strong>
+    <button type="button" id="btn-salir">Cambiar de tenant</button>
+  </p>
+
+  <!-- Menú de navegación -->
+  <nav>
+    <button type="button" data-pantalla="tipos">Tipos de habitación</button>
+    <button type="button" data-pantalla="habitaciones">Gestión de habitaciones</button>
+    <button type="button" data-pantalla="huespedes">Gestión de huéspedes</button>
+    <button type="button" data-pantalla="reservas">Gestión de reservas</button>
+    <button type="button" data-pantalla="limpieza">Gestión de limpieza</button>
+  </nav>
+
+  <hr>
+
+  <!-- Mensajes de éxito y error -->
+  <p id="mensaje" role="status"></p>
+
+  <!-- ===================== TIPOS DE HABITACIÓN ===================== -->
+  <section id="pantalla-tipos" hidden>
+    <h2>Tipos de habitación</h2>
+
+    <p>
+      <button type="button" id="tip-nuevo">Registrar tipo de habitación</button>
+      <button type="button" id="tip-recargar">Actualizar lista</button>
+    </p>
+
+    <p id="tip-cargando" hidden>Cargando tipos de habitación...</p>
+    <p id="tip-vacio" hidden></p>
+
+    <table border="1" cellpadding="4" id="tip-tabla" hidden>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Descripción</th>
+          <th>Capacidad (personas)</th>
+          <th>Precio por noche (Bs)</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="tip-cuerpo"></tbody>
+    </table>
+  </section>
+
+  <!-- ===================== HABITACIONES ===================== -->
+  <section id="pantalla-habitaciones" hidden>
+    <h2>Gestión de habitaciones</h2>
+
+    <p>
+      <label for="hab-buscar">Buscar por número:</label>
+      <input type="search" id="hab-buscar">
+
+      <label for="hab-filtro-tipo">Tipo:</label>
+      <select id="hab-filtro-tipo"></select>
+
+      <label for="hab-filtro-estado">Estado:</label>
+      <select id="hab-filtro-estado"></select>
+
+      <label for="hab-filtro-piso">Piso:</label>
+      <select id="hab-filtro-piso"></select>
+    </p>
+    <p>
+      <button type="button" id="hab-nueva">Registrar habitación</button>
+      <button type="button" id="hab-recargar">Actualizar lista</button>
+    </p>
+
+    <p id="hab-cargando" hidden>Cargando habitaciones...</p>
+    <p id="hab-vacio" hidden></p>
+
+    <table border="1" cellpadding="4" id="hab-tabla" hidden>
+      <thead>
+        <tr>
+          <th>Número</th>
+          <th>Tipo</th>
+          <th>Piso</th>
+          <th>Precio por noche (Bs)</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="hab-cuerpo"></tbody>
+    </table>
+    <p><small>El precio por noche es el precio base del tipo de habitación.</small></p>
+  </section>
+
+  <!-- ===================== HUÉSPEDES ===================== -->
+  <section id="pantalla-huespedes" hidden>
+    <h2>Gestión de huéspedes</h2>
+
+    <p>
+      <label for="hue-buscar">Buscar por nombre o documento:</label>
+      <input type="search" id="hue-buscar">
+    </p>
+    <p>
+      <button type="button" id="hue-nuevo">Registrar huésped</button>
+      <button type="button" id="hue-recargar">Actualizar lista</button>
+    </p>
+
+    <p id="hue-cargando" hidden>Cargando huéspedes...</p>
+    <p id="hue-vacio" hidden></p>
+
+    <table border="1" cellpadding="4" id="hue-tabla" hidden>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Documento de identidad</th>
+          <th>Teléfono</th>
+          <th>Correo electrónico</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="hue-cuerpo"></tbody>
+    </table>
+  </section>
+
+  <!-- ===================== RESERVAS ===================== -->
+  <section id="pantalla-reservas" hidden>
+    <h2>Gestión de reservas</h2>
+
+    <p>
+      <button type="button" id="res-nueva">Registrar reserva</button>
+      <button type="button" id="res-recargar">Actualizar lista</button>
+    </p>
+
+    <p id="res-cargando" hidden>Cargando reservas...</p>
+    <p id="res-vacio" hidden></p>
+
+    <table border="1" cellpadding="4" id="res-tabla" hidden>
+      <thead>
+        <tr>
+          <th>Huésped</th>
+          <th>Habitación</th>
+          <th>Fecha de entrada</th>
+          <th>Fecha de salida</th>
+          <th>Personas</th>
+          <th>Monto total (Bs)</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody id="res-cuerpo"></tbody>
+    </table>
+  </section>
+
+  <!-- ===================== LIMPIEZA ===================== -->
+  <section id="pantalla-limpieza" hidden>
+    <h2>Gestión de limpieza</h2>
+
+    <h3>Habitaciones desocupadas sin limpieza pendiente</h3>
+    <p><small>Solo una habitación desocupada puede recibir una tarea de limpieza.
+      Seguirá sin estar disponible hasta que la limpieza se complete.</small></p>
+    <p id="lim-cargando" hidden>Cargando información de limpieza...</p>
+    <p id="lim-por-limpiar-vacio" hidden></p>
+    <table border="1" cellpadding="4" id="lim-por-limpiar-tabla" hidden>
+      <thead>
+        <tr>
+          <th>Habitación</th>
+          <th>Estado de la habitación</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="lim-por-limpiar-cuerpo"></tbody>
+    </table>
+
+    <h3>Tareas de limpieza</h3>
+    <p>
+      <label for="lim-filtro-estado">Estado:</label>
+      <select id="lim-filtro-estado">
+        <option value="">Todos</option>
+        <option value="Pendiente">Pendiente</option>
+        <option value="Completada">Completada</option>
+      </select>
+      <button type="button" id="lim-recargar">Actualizar lista</button>
+    </p>
+    <p id="lim-vacio" hidden></p>
+    <table border="1" cellpadding="4" id="lim-tabla" hidden>
+      <thead>
+        <tr>
+          <th>Habitación</th>
+          <th>Estado de la limpieza</th>
+          <th>Observación</th>
+          <th>Fecha de registro</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="lim-cuerpo"></tbody>
+    </table>
+  </section>
+
+  </div>
+  <!-- Fin de la aplicación -->
+
+  <!-- ===================== VENTANAS MODALES ===================== -->
+
+  <!-- Formulario de habitación -->
+  <dialog id="dlg-habitacion">
+    <form id="form-habitacion" novalidate>
+      <h3 id="hab-titulo"></h3>
+      <input type="hidden" id="hab-id">
+
+      <p>
+        <label for="hab-numero">Número *</label><br>
+        <input type="text" id="hab-numero" maxlength="20">
+      </p>
+      <p>
+        <label for="hab-piso">Piso *</label><br>
+        <input type="number" id="hab-piso" step="1">
+      </p>
+      <p>
+        <label for="hab-tipo">Tipo de habitación *</label><br>
+        <select id="hab-tipo"></select>
+      </p>
+      <p id="hab-precio-info"></p>
+      <p>
+        <label for="hab-estado">Estado</label><br>
+        <select id="hab-estado"></select><br>
+        <small id="hab-estado-nota"></small>
+      </p>
+
+      <p id="hab-error" role="alert"></p>
+      <p>
+        <button type="submit" id="hab-guardar">Guardar</button>
+        <button type="button" id="hab-cancelar">Cancelar</button>
+      </p>
+    </form>
+  </dialog>
+
+  <!-- Cambiar estado de una habitación -->
+  <dialog id="dlg-estado">
+    <form id="form-estado" novalidate>
+      <h3>Cambiar estado de la habitación</h3>
+      <p id="est-descripcion"></p>
+      <p>
+        <label for="est-select">Nuevo estado</label><br>
+        <select id="est-select"></select>
+      </p>
+      <p id="est-error" role="alert"></p>
+      <p>
+        <button type="submit" id="est-guardar">Cambiar estado</button>
+        <button type="button" id="est-cancelar">Cancelar</button>
+      </p>
+    </form>
+  </dialog>
+
+  <!-- Formulario de huésped -->
+  <dialog id="dlg-huesped">
+    <form id="form-huesped" novalidate>
+      <h3 id="hue-titulo"></h3>
+      <input type="hidden" id="hue-id">
+
+      <p>
+        <label for="hue-nombre">Nombre *</label><br>
+        <input type="text" id="hue-nombre" maxlength="80">
+      </p>
+      <p>
+        <label for="hue-apellido">Apellido *</label><br>
+        <input type="text" id="hue-apellido" maxlength="80">
+      </p>
+      <p>
+        <label for="hue-documento">Documento de identidad</label><br>
+        <input type="text" id="hue-documento" maxlength="20">
+      </p>
+      <p>
+        <label for="hue-telefono">Teléfono</label><br>
+        <input type="text" id="hue-telefono" maxlength="20">
+      </p>
+      <p>
+        <label for="hue-correo">Correo electrónico</label><br>
+        <input type="email" id="hue-correo" maxlength="100">
+      </p>
+
+      <p id="hue-error" role="alert"></p>
+      <p>
+        <button type="submit" id="hue-guardar">Guardar</button>
+        <button type="button" id="hue-cancelar">Cancelar</button>
+      </p>
+    </form>
+  </dialog>
+
+  <!-- Registrar tarea de limpieza -->
+  <dialog id="dlg-limpieza">
+    <form id="form-limpieza" novalidate>
+      <h3>Registrar limpieza</h3>
+      <p id="limp-descripcion"></p>
+      <p>
+        <label for="limp-observacion">Observación (opcional)</label><br>
+        <textarea id="limp-observacion" rows="3" cols="40" maxlength="300"></textarea>
+      </p>
+      <p id="limp-error" role="alert"></p>
+      <p>
+        <button type="submit" id="limp-guardar">Registrar limpieza</button>
+        <button type="button" id="limp-cancelar">Cancelar</button>
+      </p>
+    </form>
+  </dialog>
+
+  <!-- Formulario de tipo de habitación -->
+  <dialog id="dlg-tipo">
+    <form id="form-tipo" novalidate>
+      <h3 id="tip-titulo"></h3>
+      <input type="hidden" id="tip-id">
+
+      <p>
+        <label for="tip-nombre">Nombre *</label><br>
+        <input type="text" id="tip-nombre" maxlength="60">
+      </p>
+      <p>
+        <label for="tip-descripcion">Descripción</label><br>
+        <textarea id="tip-descripcion" rows="3" cols="40" maxlength="300"></textarea>
+      </p>
+      <p>
+        <label for="tip-capacidad">Capacidad (personas) *</label><br>
+        <input type="number" id="tip-capacidad" min="1" step="1">
+      </p>
+      <p>
+        <label for="tip-precio">Precio por noche (Bs) *</label><br>
+        <input type="number" id="tip-precio" min="0" step="0.01">
+      </p>
+
+      <p id="tip-error" role="alert"></p>
+      <p>
+        <button type="submit" id="tip-guardar">Guardar</button>
+        <button type="button" id="tip-cancelar">Cancelar</button>
+      </p>
+    </form>
+  </dialog>
+
+  <!-- Huésped registrado: continuar con la reserva -->
+  <dialog id="dlg-huesped-creado">
+    <h3>Huésped registrado</h3>
+    <p id="hc-texto"></p>
+    <p>
+      <button type="button" id="hc-continuar">Continuar con la reserva</button>
+      <button type="button" id="hc-cerrar">Cerrar</button>
+    </p>
+  </dialog>
+
+  <!-- Formulario de reserva -->
+  <dialog id="dlg-reserva">
+    <form id="form-reserva" novalidate>
+      <h3>Registrar reserva</h3>
+
+      <p>
+        <label for="res-huesped">Huésped *</label><br>
+        <select id="res-huesped"></select>
+      </p>
+      <p>
+        <label for="res-habitacion">Habitación *</label><br>
+        <select id="res-habitacion"></select><br>
+        <small id="res-hab-info"></small>
+      </p>
+      <p>
+        <label for="res-entrada">Fecha de entrada *</label><br>
+        <input type="date" id="res-entrada">
+      </p>
+      <p>
+        <label for="res-salida">Fecha de salida *</label><br>
+        <input type="date" id="res-salida">
+      </p>
+      <p>
+        <label for="res-personas">Cantidad de personas *</label><br>
+        <input type="number" id="res-personas" min="1" step="1">
+      </p>
+      <p>
+        <label for="res-monto">Monto total</label><br>
+        <input type="text" id="res-monto" readonly><br>
+        <small id="res-monto-detalle"></small>
+      </p>
+      <p>
+        <label for="res-estado">Estado inicial</label><br>
+        <input type="text" id="res-estado" value="Pendiente" readonly>
+      </p>
+
+      <p id="res-error" role="alert"></p>
+      <p>
+        <button type="submit" id="res-guardar">Registrar reserva</button>
+        <button type="button" id="res-cancelar">Cancelar</button>
+      </p>
+    </form>
+  </dialog>
+
+  <!-- Confirmación de acciones importantes -->
+  <dialog id="dlg-confirmar">
+    <p id="confirmar-texto"></p>
+    <p>
+      <button type="button" id="confirmar-si">Aceptar</button>
+      <button type="button" id="confirmar-no">Cancelar</button>
+    </p>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,591 @@
+
+/* ========================================
+   HOTELFLOW - Estilo elegante y moderno
+   Colores: azul oscuro, blanco y dorado
+   ======================================== */
+
+:root {
+  --azul: #14283f;
+  --azul-claro: #203d5c;
+  --dorado: #c6a15b;
+  --dorado-hover: #b18a42;
+  --fondo: #f4f6f9;
+  --blanco: #ffffff;
+  --texto: #263548;
+  --texto-suave: #718096;
+  --borde: #e0e6ed;
+  --verde: #16805d;
+  --rojo: #c03945;
+  --sombra: 0 8px 30px rgba(20, 40, 63, 0.07);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 32px;
+  background: var(--fondo);
+  color: var(--texto);
+  font-family: "Segoe UI", Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* Encabezado principal */
+
+body > h1 {
+  margin: -32px -32px 30px;
+  padding: 28px 40px;
+  background: var(--azul);
+  color: var(--blanco);
+  font-size: 29px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  border-bottom: 4px solid var(--dorado);
+}
+
+body > h1::before {
+  content: "✦ ";
+  color: var(--dorado);
+}
+
+/* Pantalla de ingreso */
+
+#pantalla-inicio {
+  width: 100%;
+  max-width: 460px;
+  margin: 70px auto;
+  padding: 35px;
+  background: var(--blanco);
+  border: 1px solid var(--borde);
+  border-radius: 18px;
+  box-shadow: var(--sombra);
+}
+
+#pantalla-inicio h2 {
+  margin-top: 0;
+  color: var(--azul);
+  font-size: 25px;
+}
+
+#pantalla-inicio > p {
+  color: var(--texto-suave);
+}
+
+#pantalla-inicio form > p {
+  margin-top: 20px;
+}
+
+/* Títulos */
+
+h2 {
+  margin: 0 0 24px;
+  color: var(--azul);
+  font-size: 25px;
+  font-weight: 700;
+}
+
+h3 {
+  color: var(--azul);
+  font-size: 19px;
+  font-weight: 650;
+}
+
+small {
+  color: var(--texto-suave);
+  font-size: 12px;
+}
+
+/* Panel de aplicación */
+
+#aplicacion {
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+/* Información del tenant */
+
+#aplicacion > p:first-child {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 15px 20px;
+  background: var(--blanco);
+  border: 1px solid var(--borde);
+  border-radius: 12px;
+  box-shadow: 0 3px 12px rgba(20, 40, 63, 0.03);
+}
+
+#tenant-actual {
+  color: var(--dorado-hover);
+  overflow-wrap: anywhere;
+}
+
+/* Menú de navegación */
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 24px 0;
+  padding: 10px;
+  background: var(--azul);
+  border-radius: 14px;
+}
+
+nav button {
+  flex: 1 1 155px;
+  min-height: 46px;
+  padding: 12px 15px;
+  background: transparent;
+  color: #eaf0f7;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  font-weight: 600;
+  transition: background 0.2s, color 0.2s;
+}
+
+nav button:hover,
+nav button:focus-visible {
+  background: var(--azul-claro);
+  color: var(--dorado);
+}
+
+/* Paneles de cada sección */
+
+#aplicacion > section {
+  margin-bottom: 28px;
+  padding: 30px;
+  background: var(--blanco);
+  border: 1px solid var(--borde);
+  border-radius: 16px;
+  box-shadow: var(--sombra);
+  min-width: 0;
+}
+
+/* Separador */
+
+hr {
+  display: none;
+}
+
+/* Botones */
+
+button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 40px;
+  padding: 10px 17px;
+  background: var(--azul);
+  color: var(--blanco);
+  border: 1px solid var(--azul);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s,
+    transform 0.2s, box-shadow 0.2s;
+}
+
+button:hover:not(:disabled) {
+  background: var(--azul-claro);
+  border-color: var(--azul-claro);
+  box-shadow: 0 3px 9px rgba(20, 40, 63, 0.12);
+}
+
+button:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+#hab-nueva,
+#hue-nuevo,
+#tip-nuevo,
+#res-nueva,
+#hc-continuar {
+  background: var(--dorado);
+  color: #17283b;
+  border-color: var(--dorado);
+}
+
+#hab-nueva:hover,
+#hue-nuevo:hover,
+#tip-nuevo:hover,
+#res-nueva:hover,
+#hc-continuar:hover {
+  background: var(--dorado-hover);
+  border-color: var(--dorado-hover);
+  color: var(--blanco);
+}
+
+#btn-salir {
+  min-height: 34px;
+  padding: 7px 12px;
+  background: transparent;
+  color: var(--azul);
+  border-color: var(--borde);
+}
+
+#btn-salir:hover {
+  background: #edf1f6;
+}
+
+#hab-recargar,
+#hue-recargar,
+#tip-recargar,
+#res-recargar,
+#lim-recargar {
+  background: var(--blanco);
+  color: var(--azul);
+  border-color: var(--borde);
+}
+
+#hab-recargar:hover,
+#hue-recargar:hover,
+#tip-recargar:hover,
+#res-recargar:hover,
+#lim-recargar:hover {
+  background: #edf1f6;
+}
+
+/* Campos de búsqueda y filtros */
+
+#pantalla-habitaciones > p:first-of-type,
+#pantalla-huespedes > p:first-of-type,
+#pantalla-limpieza > p:nth-of-type(2) {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+label {
+  display: inline-block;
+  color: var(--azul);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* Inputs, select y áreas de texto */
+
+input,
+select,
+textarea {
+  width: 100%;
+  min-width: 0;
+  min-height: 42px;
+  padding: 10px 12px;
+  background: #fff;
+  color: var(--texto);
+  border: 1px solid #d6dee8;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--dorado);
+  box-shadow: 0 0 0 3px rgba(198, 161, 91, 0.17);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #9aa6b5;
+}
+
+input[readonly] {
+  background: #f0f3f7;
+  color: var(--texto-suave);
+}
+
+input[type="search"] {
+  width: 220px;
+}
+
+#hab-filtro-tipo,
+#hab-filtro-estado,
+#hab-filtro-piso,
+#lim-filtro-estado {
+  width: auto;
+  min-width: 135px;
+}
+
+textarea {
+  min-height: 95px;
+  resize: vertical;
+}
+
+/* Tablas */
+
+#aplicacion section table {
+  width: 100%;
+  margin: 20px 0;
+  border: 1px solid var(--borde);
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 10px;
+  overflow: hidden;
+  font-size: 13px;
+}
+
+table th {
+  padding: 15px 13px;
+  background: var(--azul);
+  color: var(--blanco);
+  border: none;
+  text-align: left;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+table td {
+  padding: 13px;
+  background: var(--blanco);
+  border: none;
+  border-bottom: 1px solid var(--borde);
+  vertical-align: middle;
+}
+
+table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+table tbody tr:nth-child(even) td {
+  background: #f8fafc;
+}
+
+table tbody tr:hover td {
+  background: #f0f4f9;
+}
+
+table td button {
+  margin: 2px;
+  padding: 7px 11px;
+  min-height: 32px;
+  font-size: 12px;
+}
+
+/* Estados de carga y listas vacías */
+
+#hab-cargando,
+#hue-cargando,
+#tip-cargando,
+#res-cargando,
+#lim-cargando,
+#inicio-cargando {
+  color: var(--texto-suave);
+  padding: 12px 0;
+}
+
+#hab-vacio,
+#hue-vacio,
+#tip-vacio,
+#res-vacio,
+#lim-vacio,
+#lim-por-limpiar-vacio {
+  padding: 15px;
+  background: #f4f7fa;
+  color: var(--texto-suave);
+  border: 1px dashed #cbd5e1;
+  border-radius: 9px;
+}
+
+/* Mensajes del sistema */
+
+#mensaje {
+  padding: 0;
+  margin: 0 0 18px;
+  overflow-wrap: anywhere;
+}
+
+#mensaje:not(:empty) {
+  padding: 14px 17px;
+  background: #edf4fc;
+  color: var(--azul);
+  border-left: 4px solid var(--dorado);
+  border-radius: 7px;
+}
+
+[role="alert"] {
+  color: var(--rojo);
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+/* Ventanas modales */
+
+dialog {
+  width: min(94vw, 540px);
+  max-width: 540px;
+  max-height: 88vh;
+  padding: 30px;
+  overflow-y: auto;
+  background: var(--blanco);
+  color: var(--texto);
+  border: 1px solid var(--borde);
+  border-top: 4px solid var(--dorado);
+  border-radius: 16px;
+  box-shadow: 0 24px 80px rgba(9, 24, 42, 0.25);
+}
+
+dialog::backdrop {
+  background: rgba(12, 25, 42, 0.62);
+  backdrop-filter: blur(3px);
+}
+
+dialog h3 {
+  margin: 0 0 22px;
+  font-size: 21px;
+}
+
+dialog form > p {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 7px;
+  margin: 16px 0;
+}
+
+dialog form > p:has(button) {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+dialog form > p:has(button) button {
+  flex: 1;
+}
+
+dialog form > p:has(small) small {
+  line-height: 1.5;
+}
+
+dialog form > p:has(textarea) textarea {
+  width: 100%;
+}
+
+#dlg-confirmar > p:last-child,
+#dlg-huesped-creado > p:last-child {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+#dlg-confirmar > p:last-child button,
+#dlg-huesped-creado > p:last-child button {
+  flex: 1;
+}
+
+#hab-precio-info,
+#res-hab-info,
+#res-monto-detalle {
+  color: var(--verde);
+  font-size: 13px;
+}
+
+#hab-estado-nota {
+  color: var(--texto-suave);
+}
+
+/* Accesibilidad */
+
+button:focus-visible {
+  outline: 3px solid rgba(198, 161, 91, 0.55);
+  outline-offset: 2px;
+}
+
+/* Adaptación a móviles */
+
+@media (max-width: 760px) {
+  body {
+    padding: 16px;
+  }
+
+  body > h1 {
+    margin: -16px -16px 20px;
+    padding: 23px 20px;
+    font-size: 25px;
+  }
+
+  #pantalla-inicio {
+    margin: 30px auto;
+    padding: 24px;
+  }
+
+  #aplicacion > section {
+    padding: 20px 15px;
+  }
+
+  h2 {
+    font-size: 22px;
+  }
+
+  nav {
+    gap: 6px;
+    padding: 8px;
+  }
+
+  nav button {
+    flex: 1 1 100%;
+  }
+
+  #pantalla-habitaciones > p:first-of-type,
+  #pantalla-huespedes > p:first-of-type,
+  #pantalla-limpieza > p:nth-of-type(2) {
+    align-items: stretch;
+  }
+
+  input[type="search"],
+  #hab-filtro-tipo,
+  #hab-filtro-estado,
+  #hab-filtro-piso,
+  #lim-filtro-estado {
+    width: 100%;
+  }
+
+  #aplicacion section table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  dialog {
+    padding: 23px 18px;
+  }
+
+  #aplicacion > p:first-child {
+    align-items: flex-start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition: none !important;
+  }
+}
