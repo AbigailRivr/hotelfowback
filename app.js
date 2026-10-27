@@ -7,8 +7,7 @@
 
 /* ---------- 1. Configuración ---------- */
 
-const GATEWAY = "https://localhost:7039";
-
+const API_URL = "https://91b0z3wh-7039.brs.devtunnels.ms/api";
 const RUTAS = {
   habitaciones: "/api/Habitacions",
   tipos: "/api/TipoHabitacions",
